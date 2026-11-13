@@ -11,13 +11,38 @@ usage:   .space 48
 
  
 
+# Ma nguon 2 – doc reading, ghi usage
+
 .text
 
 .globl main
 
 main:
 
+  la  $s0, reading      # $s0 = dia chi nen cua reading
+
+  la  $s1, usage        # $s1 = dia chi nen cua usage
+
+  lw  $t0, 0($s0)       # $t0 = reading[0]
+
+  lw  $t1, 4($s0)       # $t1 = reading[1]
+
+  sub $t2, $t1, $t0     # $t2 = dien nang thang 1
+
+  sw  $t2, 0($s1)       # usage[0] = $t2
+
+  # >>> dien nang thang 2 -> usage[1]
+  lw $t0,4($s0)
+  lw $t1, 8($s0)
+  sub $t2 , $t1,$t0
+  sw $t2, 4($s1)
+
+  # >>> dien nang thang 3 -> usage[2]
+  lw $t0, 8($s0)
+  lw $t1, 12($s0)
+  sub $t2,$t1,$t0
+  sw $t2,8($s1)
+
   li  $v0, 10
 
   syscall
-
